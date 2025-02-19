@@ -83,6 +83,13 @@ export interface AnnotatorOptions {
       label?: string;
     },
   ) => boolean;
+
+  /**
+   * 是否显示辅助线
+   *
+   * @default true
+   */
+  showAuxiliaryLine?: boolean;
 }
 
 export class AnnotatorBase {
@@ -133,7 +140,7 @@ export class AnnotatorBase {
     this.monitor = createMonitor(this.renderer!.canvas, {
       getTools: () => this.tools,
     });
-    this.cursorManager = createCursorManager(this.container, { x: 0, y: 0 });
+    this.cursorManager = createCursorManager(this.container, { x: 0, y: 0 }, '', this.config.showAuxiliaryLine);
     this._initialTools();
   }
 

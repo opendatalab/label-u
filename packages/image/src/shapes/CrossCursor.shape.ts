@@ -19,6 +19,9 @@ export interface CursorParams {
 
   /** 线条样式 */
   style?: CursorStyle;
+
+  /** 展示辅助线 */
+  showAuxiliaryLine?: boolean;
 }
 
 const dpr = window.devicePixelRatio || 1;
@@ -30,6 +33,8 @@ export class CrossCursor {
     fill: '#fff',
   };
 
+  public showAuxiliaryLine: boolean = true;
+
   public coordinate: { x: number; y: number } = {
     x: 0,
     y: 0,
@@ -40,6 +45,10 @@ export class CrossCursor {
       x: params.x,
       y: params.y,
     };
+
+    if (typeof params.showAuxiliaryLine === 'boolean') {
+      this.showAuxiliaryLine = params.showAuxiliaryLine;
+    }
 
     if (params.style) {
       this._style = {
@@ -75,7 +84,7 @@ export class CrossCursor {
     const finalX = this.coordinate.x;
     const finalY = this.coordinate.y;
 
-    if (!finalX && !finalY) {
+    if ((!finalX && !finalY) || this.showAuxiliaryLine === false) {
       return;
     }
 

@@ -16,13 +16,14 @@ export class CursorManager {
 
   private _color: string = DEFAULT_LABEL_COLOR;
 
-  constructor(container: HTMLDivElement | null, coordinate: AxisPoint, color?: string) {
+  constructor(container: HTMLDivElement | null, coordinate: AxisPoint, color?: string, showAuxiliaryLine?: boolean) {
     this._coordinate = coordinate;
     this.cursor = new CrossCursor({
       ...coordinate,
       style: {
         stroke: color || this._color,
       },
+      showAuxiliaryLine,
     });
 
     if (!container) {
@@ -52,6 +53,7 @@ export class CursorManager {
       style: {
         stroke: this._color,
       },
+      showAuxiliaryLine: this.cursor?.showAuxiliaryLine,
     });
   }
 
